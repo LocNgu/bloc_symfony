@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('build/gallery.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block title %}
+    bloc - gallery
+{% endblock %}
+
+{% block body %}
+    <article id="gallery">
+    {#    {% for image in images %}#}
+    {#        <img class="fade lazy" data-src="{{ image.getImgPath() }}" src="https://via.placeholder.com/1600x900">#}
+    {#    {% endfor %}#}
+        {% for i in 0..10 %}
+            <img class="fade lazy" src="https://via.placeholder.com/1600x900">
+        {% endfor %}
+    </article>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.plugins.min.js"></script>
+    <script>
+        $('.lazy').show().Lazy();
+
+        $('.lazy').Lazy({
+        // your configuration goes here
+            scrollDirection: 'vertical',
+            effect: "fadeIn",
+            visibleOnly: true,
+            onError: function(element) {
+                console.log('error loading ' + element.data('src'));
+            }
+        });
+    </script>
+{% endblock %}

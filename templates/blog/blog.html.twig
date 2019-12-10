@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('build/entries.css') }}" rel="stylesheet"/>
+{% endblock %}
+{% block body %}
+    <article class="entries">
+    {% for post in posts %}
+        <div class="entry">
+            <img class="entry-img" src="{{ post.getPreviewImg() }}">
+            <h2> {{ post.getTitle() }} </h2>
+            <p class="publicationDate">{{ post.getPublicationDate()|date("Y-m-d") }}</p>
+            <p> {{ post.getSummary() }}</p>
+        </div>
+    {% endfor %}
+    </article>
+{% endblock %}

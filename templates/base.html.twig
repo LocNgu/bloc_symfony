@@ -2,11 +2,74 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="./../css/main.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Raleway:400|Roboto:300&display=swap" rel="stylesheet">
+        {% block stylesheets %}
+            <link href="{{ asset('build/main.css') }}" rel="stylesheet"/>
+        {% endblock %}
+
+
+        <title>{% block title %}Bloc{% endblock %}</title>
     </head>
+    <button onclick="toTopFunction()" id="to-top">&#8963;</button>
     <body>
+        <header class="header">
+            <div class="logo" id="header-logo">
+                <a href="./index.php">
+                    <span class="accent">b</span>loc
+                </a>
+            </div>
+            <input type="checkbox" id="hamburger">
+            <label for="hamburger" class="hamburger">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </label>
+            <nav id="menu">
+                <ul>
+                    <li><a {% if nav_index == 0 %}class="active"{% endif %} href="{{ path('blog') }}">Blog</a></li>
+                    <li><a {% if nav_index == 1 %}class="active"{% endif %} href="{{ path('gallery') }}">Gallery</a> </li>
+                    <li><a {% if nav_index == 2 %}class="active"{% endif %} href="#footer">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+
+        <footer>
+            <div id="footer">
+                <div class="footer-item">
+                    <h1 class="logo" id="footer-logo"><span style="color: #ea3143">b</span>loc</h1>
+                </div>
+                <div class="footer-item">
+                    <h3>Über mich</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+                    </p>
+                </div>
+                <div class="footer-item">
+                    <h3>Adresse</h3>
+                    <p>Firma</p>
+                    <p>Musterstraße</p>
+                    <p>01234 Stadt</p>
+                </div>
+                <div class="footer-item">
+                    <h3>Kontakt</h3>
+                    <p>muster@mail.de</p>
+                    <p>0123 - 456789</p>
+                    <img class="social-media-icon" src="https://img.icons8.com/material/24/000000/github.png">
+                    <img class="social-media-icon" src="https://img.icons8.com/material/24/000000/linkedin.png">
+                    <img class="social-media-icon" src="https://img.icons8.com/material/24/000000/twitter.png">
+                </div>
+            </div>
+            <div id="copyright">
+                <p>© 2016 Copyright Text</p>
+            </div>
+        </footer>
+
+        {% block javascripts %}
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        {% endblock %}
     </body>
 </html>
