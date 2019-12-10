@@ -1,0 +1,32 @@
+// color
+$main-text-color: #121212;
+$sec-text-color: #e3e3e3;
+$main-background-color: #f1f1f1;
+$sec-background-color: #262626;
+$accent-color: #ea3142;
+$entry: #fff;
+// media queries breakpoint
+// mobile-screen < 768px
+$small-screen: 768px;
+$tablet: 'min-width: 768px';
+$desktop: 'min-width: 1200px'; // sizes
+$header-height: 10vh;
+$round-edges: 7px;
+$page-width: 90vw;
+$footer-text-size: .8em;
+
+article {
+  display: flex;
+  flex-direction: row;
+
+  width: $page-width;
+  margin: auto;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+
+  background: $main-background-color;
+  align-content: stretch;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}

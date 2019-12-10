@@ -1,0 +1,72 @@
+@import "globals";
+
+
+
+.entry {
+  font-family: 'Roboto';
+  font-size: 1em;
+
+  width: $page-width;
+  margin: 25px auto;
+
+  transition: .3s;
+  text-align: justify;
+
+  border-width: 1px;
+  border-radius: 7px;
+  background: $entry;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2);
+
+
+  &:hover {
+    box-shadow: 0 4px 32px 0 rgba(0, 0, 0, .2);
+  }
+
+  p,
+  h2,
+  a {
+    margin-right: 10%;
+    margin-left: 10%;
+  }
+
+  h2 {
+    font-family: 'Raleway';
+    font-size: 2em;
+
+    margin-top: 1em;
+  }
+
+  @media ($tablet) {
+    max-width: 49%;
+  }
+
+  @media ($desktop) {
+    max-width: 32%;
+  }
+}
+
+.entry-img {
+  width: 100%;
+  max-height: 60vh;
+
+  border-radius: 7px 7px 0 0;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);
+
+  object-fit: cover;
+
+  @media ($tablet) {
+    height: 40vh;
+
+    object-fit: cover;
+  }
+}
+
+.entry-preview {
+  /*    height: 40vh;
+  overflow: hidden;*/
+}
+
+.entry-readmore {
+  /*width: 100%;*/
+  /*background: linear-gradient(to bottom, transparent, black));*/
+}

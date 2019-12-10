@@ -1,0 +1,37 @@
+@import "globals";
+
+#gallery {
+    justify-content: space-between;
+}
+
+#gallery img {
+    height: 20vh;
+    padding: 3px;
+
+    flex-grow: 1;
+    object-fit: cover;
+
+@media ($tablet) {
+    height: 35vh;
+}
+}
+
+.lazy {
+    //display: none;
+}
+
+
+.fade {
+    animation-duration: 3s;
+    animation-name: fade;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
