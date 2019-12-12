@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="./../css/main.min.css">
         <link href="https://fonts.googleapis.com/css?family=Raleway:400|Roboto:300&display=swap" rel="stylesheet">
+
         {% block stylesheets %}
             <link href="{{ asset('build/main.css') }}" rel="stylesheet"/>
         {% endblock %}
@@ -12,7 +13,7 @@
 
         <title>{% block title %}Bloc{% endblock %}</title>
     </head>
-    <button onclick="toTopFunction()" id="to-top">&#8963;</button>
+    <button id="to-top">&#8963;</button>
     <body>
         <header class="header">
             <div class="logo" id="header-logo">
@@ -28,15 +29,19 @@
             </label>
             <nav id="menu">
                 <ul>
-                    <li><a {% if nav_index == 0 %}class="active"{% endif %} href="{{ path('blog') }}">Blog</a></li>
-                    <li><a {% if nav_index == 1 %}class="active"{% endif %} href="{{ path('gallery') }}">Gallery</a> </li>
-                    <li><a {% if nav_index == 2 %}class="active"{% endif %} href="#footer">Contact</a></li>
+                    {% block navigationlist %}
+                    <li><a {% if app.request.get('_route') == 'blog'    %} class = "active" {% endif %} href = "{{ path('blog')     }}">Blog</a></li>
+                    <li><a {% if app.request.get('_route') == 'gallery' %} class = "active" {% endif %} href = "{{ path('gallery')  }}">Gallery</a></li>
+                    <li><a href="#footer">Contact</a></li>
+                    {% endblock %}
                 </ul>
             </nav>
         </header>
+        <div class="main">
+            {% block body %}{% endblock %}
+        </div>
 
-        {% block body %}{% endblock %}
-
+        {%  block footer %}
         <footer>
             <div id="footer">
                 <div class="footer-item">
@@ -67,9 +72,9 @@
                 <p>© 2016 Copyright Text</p>
             </div>
         </footer>
-
+        {% endblock %}
         {% block javascripts %}
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </body>
 </html>

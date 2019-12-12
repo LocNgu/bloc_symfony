@@ -1,36 +1,69 @@
+@import "main";
 
-form {
-  text-align: center;
+@media ($desktop) {
+  body{
+    display: flex;
+  }
+  .header{
+    //display: flex;
+    height: calc(100vh - 2em);
+    //width: 15vw;
+    //float: left;
+    margin-left: 2em;
+    padding: 1em;
+    //justify-content: center;
+    //align-items: center;
+    flex: 1;
+
+  }
+  #menu{
+    display: flex;
+    height: 100vh;
+    li{
+      width: 100%;
+      padding: 0;
+    }
+
+  }
+  .main{
+    flex: 6;
+  }
+
 }
 
-.textinput {
-  display: block;
-  margin: auto;
-  margin-bottom: 1em;
-}
+//form {
+//  text-align: center;
+//}
+//
+//.textinput {
+//  display: block;
+//  margin: auto;
+//  margin-bottom: 1em;
+//}
+//
+//.button {}
+//
+//.textarea {
+//  margin: auto;
+//  display: block;
+//  height: 40vh;
+//  width: 80vw;
+//}
+//
+//table {
+//  font-family: arial, sans-serif;
+//  border-collapse: collapse;
+//  width: 100%;
+//}
+//
+//td,
+//th {
+//  border: 1px solid #dddddd;
+//  text-align: left;
+//  padding: 8px;
+//}
+//
+//tr:nth-child(even) {
+//  background-color: #dddddd;
+//}
 
-.button {}
-
-.textarea {
-  margin: auto;
-  display: block;
-  height: 40vh;
-  width: 80vw;
-}
-
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td,
-th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}

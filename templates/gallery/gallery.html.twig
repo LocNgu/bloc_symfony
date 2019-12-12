@@ -20,19 +20,6 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.plugins.min.js"></script>
-    <script>
-        $('.lazy').show().Lazy();
+    {{ encore_entry_script_tags('lazy') }}
 
-        $('.lazy').Lazy({
-        // your configuration goes here
-            scrollDirection: 'vertical',
-            effect: "fadeIn",
-            visibleOnly: true,
-            onError: function(element) {
-                console.log('error loading ' + element.data('src'));
-            }
-        });
-    </script>
 {% endblock %}
