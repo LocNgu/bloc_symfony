@@ -11,7 +11,7 @@
     <li><a {% if app.request.get('_route') == 'post' %}class="active"{% endif %} href="{{ path('post') }}">Post</a> </li>
     <li><a {% if app.request.get('_route') == 'category' %}class="active"{% endif %} href="{{ path('category')}}">Categories</a></li>
     <li><a {% if app.request.get('_route') == 'tag' %}class="active"{% endif %} href="{{ path('tag')}}">Tags</a></li>
-    <li><a {% if app.request.get('_route') == 'security' %}class="active"{% endif %} href="{{ path('security')}}">Security</a></li>
+    <li><a {% if app.request.get('_route') == 'user' %}class="active"{% endif %} href="{{ path('user')}}">User</a></li>
 {% endblock %}
 
 {% block footer %}

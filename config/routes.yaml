@@ -24,6 +24,11 @@ tag:
 
 user:
    path: /admin/user
-   controller: App\Controller\SecurityController::index
+   controller: App\Controller\UserController::index
+
+login:
+   path: /login
+   controller: App\Controller\SecurityController::login
+   methods: GET|POST
 
 
