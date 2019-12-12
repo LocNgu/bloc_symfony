@@ -6,5 +6,24 @@ gallery:
    path: /gallery
    controller: App\Controller\GalleryController::index
 
+admin:
+   path: /admin
+   controller: App\Controller\AdminController::index
+
+post:
+   path: /admin/post
+   controller: App\Controller\PostController::index
+
+category:
+   path: /admin/category
+   controller: App\Controller\CategoryController::index
+
+tag:
+   path: /admin/tag
+   controller: App\Controller\TagController::index
+
+user:
+   path: /admin/user
+   controller: App\Controller\SecurityController::index
 
 
