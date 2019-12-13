@@ -26,9 +26,9 @@ user:
    path: /admin/user
    controller: App\Controller\UserController::index
 
-create_user:
+registration:
    path: /admin/user/create
-   controller: App\Controller\UserController::create
+   controller: App\Controller\RegistrationController::register
 
 role:
    path: /admin/user/role

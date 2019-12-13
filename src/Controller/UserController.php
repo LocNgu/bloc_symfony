@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use Doctrine\DBAL\Types\TextType;
+use http\Env\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserController extends AbstractController
@@ -18,11 +20,4 @@ class UserController extends AbstractController
             ['users' => $users]
         );
     }
-    public function create()
-    {
-        return $this->render(
-            'admin/user/create_user.html.twig'
-        );
-    }
-
 }
