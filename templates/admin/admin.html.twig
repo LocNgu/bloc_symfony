@@ -2,16 +2,14 @@
 {% block stylesheets %}
     <link href="{{ asset('build/admin.css') }}" rel="stylesheet"/>
 {% endblock %}
-{% block title %}
-    Adminpage
-{% endblock %}
+{% block title %}Adminpage{% endblock %}
 {% block navigationlist %}
-{#    <li><a {% if nav_index == 1 %}class="active"{% endif %} href="{{ path('admin') }}">Dashboard</a></li>#}
-    <li><a {% if app.request.get('_route') == 'admin' %} class="active"{% endif %} href="{{ path('admin') }}">Dashboard</a></li>
-    <li><a {% if app.request.get('_route') == 'post' %}class="active"{% endif %} href="{{ path('post') }}">Post</a> </li>
-    <li><a {% if app.request.get('_route') == 'category' %}class="active"{% endif %} href="{{ path('category')}}">Categories</a></li>
-    <li><a {% if app.request.get('_route') == 'tag' %}class="active"{% endif %} href="{{ path('tag')}}">Tags</a></li>
-    <li><a {% if app.request.get('_route') == 'user' %}class="active"{% endif %} href="{{ path('user')}}">User</a></li>
+    <li><a {% if app.request.get('_route') == 'admin' %} class = "active"{% endif %} href = "{{ path('admin') }}">Dashboard</a></li>
+    <li><a {% if app.request.get('_route') == 'post' %} class = "active"{% endif %} href = "{{ path('post') }}">Post</a></li>
+    <li><a {% if app.request.get('_route') == 'category' %} class = "active"{% endif %} href = "{{ path('category')}}">Categories</a></li>
+    <li><a {% if app.request.get('_route') == 'tag' %} class = "active"{% endif %} href = "{{ path('tag')}}">Tags</a></li>
+    <li><a {% if app.request.get('_route') == 'user' %} class = "active"{% endif %} href = "{{ path('user')}}">User</a></li>
+    <li class = "logout"><a  href = "{{ path('logout') }}">logout</a></li>
 {% endblock %}
 
 {% block footer %}

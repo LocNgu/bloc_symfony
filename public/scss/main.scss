@@ -288,6 +288,48 @@ label.hamburger {
         margin: 0;
     }
 }
+.authentication-form{
+    background: $sec-background-color;
+    border-radius: $round-edges;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2);
+    height: 85vh;
+
+    form {
+        background: #f1f1f1;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2);
+        width: 40vw;
+        margin: auto;
+        margin-top: 30vh;
+        padding: 2em;
+        border-radius: $round-edges;
+
+        input, button {
+            width: 100%;
+            margin-bottom: 1em;
+            height: 3em;
+            padding:0;
+        }
+
+        button {
+            padding: 0.5em;
+            border-radius: 5px;
+            color: $main-background-color;
+            transition: .3s;
+
+            &:hover {
+                box-shadow: 0 4px 32px 0 rgba(0, 0, 0, .2);
+            }
+        }
+
+        .submit {
+            background-color: #4CAF50;
+        }
+
+        .cancel {
+            background-color: $accent-color;
+        }
+    }
+}
 
 
 

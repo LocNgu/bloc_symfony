@@ -10,6 +10,7 @@ class TagController extends AbstractController
 {
     public function index()
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $tags = $em->getRepository(Tag::class)->findAll();

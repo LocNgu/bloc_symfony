@@ -11,7 +11,7 @@ $small-screen: 768px;
 $tablet: 'min-width: 768px';
 $desktop: 'min-width: 1200px'; // sizes
 $header-height: 10vh;
-$round-edges: 7px;
+$round-edges: 10px;
 $page-width: 90vw;
 $footer-text-size: .8em;
 
@@ -29,4 +29,7 @@ article {
   align-items: flex-start;
   flex-wrap: wrap;
   justify-content: space-between;
+
+  font-family: 'Roboto';
+  font-size: 1em;
 }
