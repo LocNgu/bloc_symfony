@@ -1,0 +1,32 @@
+{% extends './admin/admin.html.twig' %}
+
+{% block body %}
+    <a href="{{ path('create_user') }}">Create User</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Roles</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.getUsername() }}</td>
+                    <td>
+                        {% for role in user.getRoles() %}
+                            {{ role }}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <button>Edit</button>
+                        <button>Delete</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+
+</form>
+{% endblock %}

@@ -120,13 +120,10 @@ body {
         list-style-type: none;
     }
 
-    a {
+    a, label{
         font-size: 2em;
-
         text-decoration: none;
-
         color: $sec-text-color;
-
         &:hover {
             color: #fff;
         }
@@ -134,6 +131,20 @@ body {
         &.active {
             color: $accent-color;
         }
+    }
+    input{
+        display: none;
+    }
+    .dropdown-container{
+        display: none;
+        transition: all 0.5s ease;
+        width:100%;
+        background: red;
+        padding-left: 2em;
+    }
+    #dropdown-user:checked+.nav-elem+.dropdown-container,
+    .open{
+        display: block;
     }
 
     @media ($tablet) {

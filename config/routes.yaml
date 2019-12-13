@@ -26,6 +26,14 @@ user:
    path: /admin/user
    controller: App\Controller\UserController::index
 
+create_user:
+   path: /admin/user/create
+   controller: App\Controller\UserController::create
+
+role:
+   path: /admin/user/role
+   controller: App\Controller\RoleController:index
+
 login:
    path: /login
    controller: App\Controller\SecurityController::login
