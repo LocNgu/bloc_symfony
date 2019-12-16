@@ -1,32 +1,38 @@
 {% extends './admin/admin.html.twig' %}
 
 {% block body %}
-    <a href="{{ path('registration') }}">Create User</a>
-    <table>
-        <thead>
-            <tr>
-                <th>Username</th>
-                <th>Roles</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in users %}
-                <tr>
-                    <td>{{ user.getUsername() }}</td>
-                    <td>
-                        {% for role in user.getRoles() %}
-                            {{ role }}
-                        {% endfor %}
-                    </td>
-                    <td>
-                        <button>Edit</button>
-                        <button>Delete</button>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-        </table>
-
+    <div class = "frame">
+        <h1>User</h1>
+            <a class = "button" href="{{ path('registration') }}">Create User</a>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Roles</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.getUsername() }}</td>
+                            <td>{{ user.getLastname() }} {{ user.getFirstname() }}</td>
+                            <td>{{ user.getEmail() }}</td>
+                            <td>
+                                {% for role in user.getRoles() %}
+                                    {{ role }}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                <a class="btn" href="{{ path('editUser', {userId: user.getId}) }}">Edit</a>
+                                <button>Delete</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+    </div>
 </form>
 {% endblock %}

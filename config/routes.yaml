@@ -26,6 +26,13 @@ user:
    path: /admin/user
    controller: App\Controller\UserController::index
 
+editUser:
+   path: /admin/user/{userId}/edit
+   defaults: { userId: null}
+   requirements:
+        page: '\d+'
+   controller: App\Controller\UserController::edit
+
 registration:
    path: /admin/user/create
    controller: App\Controller\RegistrationController::register
