@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -35,8 +37,12 @@ class UserFormType extends AbstractType
             ->add('lastname', TextType::class, [
                 'label' => 'lastname',
             ])
-            ->add('email', TextType::class, [
+            ->add('email', EmailType::class, [
                 'label' => 'email',
+            ])
+            ->add('roles', CollectionType::class, [
+            'entry_type' => TextType::class,
+
             ])
             ->add('save', SubmitType::class)
             ;

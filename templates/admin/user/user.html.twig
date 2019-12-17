@@ -18,8 +18,8 @@
                     {% for user in users %}
                         <tr>
                             <td>{{ user.getUsername() }}</td>
-                            <td>{{ user.getLastname() }} {{ user.getFirstname() }}</td>
-                            <td>{{ user.getEmail() }}</td>
+                            <td>{{ user.getFirstname() }} {{ user.getLastname() }}</td>
+                            <td><a href="mailto:user.getEmail()">{{ user.getEmail() }}</a></td>
                             <td>
                                 {% for role in user.getRoles() %}
                                     {{ role }}

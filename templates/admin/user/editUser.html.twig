@@ -1,6 +1,35 @@
 {% extends 'admin/admin.html.twig' %}
 {% block body %}
     <div class = "frame">
-        {{ form(form) }}
+        <h1>User</h1>
+        {{ form_start(form) }}
+            {{ form_errors(form) }}
+            <div class="row">
+                <div class="col">
+                    {{ form_row(form.id) }}
+                </div>
+                <div class="col">
+                    {{ form_row(form.username) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{ form_row(form.firstname) }}
+                </div>
+                <div class="col">
+                    {{ form_row(form.lastname) }}
+                </div>
+            </div>
+            <div class="row">
+                {{ form_row(form.email) }}
+            </div>
+            <div class="row">
+                {{ form_row(form.roles) }}
+            </div>
+            <div class="row">
+                {{ form_row(form.save, { 'label': 'Submit me' }) }}
+                <a class = "btn cancel" href="{{ path('user') }}">back</a>
+            </div>
+        {{ form_end(form) }}
     </div>
 {% endblock %}
