@@ -21,6 +21,31 @@ body {
     background-color: $main-background-color;
 }
 
+a.btn{
+    display:inline-block;
+    padding:0.3em 1.2em;
+    margin:0 0.3em 0.3em 0;
+    border-radius:2em;
+    box-sizing: border-box;
+    text-decoration:none;
+    color:#FFFFFF;
+    background-color:#4eb5f1;
+    text-align:center;
+    transition: all 0.2s;
+    &:hover{
+        background-color:#4095c6;
+    }
+    @media all and (max-width:30em){
+        &{
+            display:block;
+            margin:0.2em auto;
+        }
+    }
+    &.cancel{
+        background-color: red;
+    }
+}
+
 /* -------------------- */
 /*    to the top button */
 /* -------------------- */
@@ -341,5 +366,11 @@ label.hamburger {
     }
 }
 
+table {
+    border-radius: $round-corners;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2);
+    margin: auto;
+    width: 100%;
+}
 
 
