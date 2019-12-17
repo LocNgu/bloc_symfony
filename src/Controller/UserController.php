@@ -40,4 +40,14 @@ class UserController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    public function delete(Request $request, $userId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository(User::class)->find($userId);
+        $em->remove($user);
+        $em->flush();
+
+        return $this->redirectToRoute('user');
+    }
 }

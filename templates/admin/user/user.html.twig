@@ -27,7 +27,7 @@
                             </td>
                             <td>
                                 <a class="btn" href="{{ path('editUser', {userId: user.getId}) }}">Edit</a>
-                                <button>Delete</button>
+                                <a class="btn cancel" href="{{ path('deleteUser', {userId: user.getId}) }}">Delete</a>
                             </td>
                         </tr>
                     {% endfor %}
