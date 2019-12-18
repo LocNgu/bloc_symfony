@@ -3,12 +3,15 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\ManyToMany;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
+ * @ORM\Table(name="user")
  */
 class User implements UserInterface
 {
@@ -25,7 +28,8 @@ class User implements UserInterface
     private $username;
 
     /**
-     * @ORM\Column(type="json")
+     * @JoinTable(name="users_roles")
+     * @ManyToMany(targetEntity="Role", inversedBy="users",cascade={"persist"})
      */
     private $roles = [];
 
@@ -73,16 +77,18 @@ class User implements UserInterface
     }
 
     /**
+     * @return User
+     *
      * @see UserInterface
      */
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
+//    public function getRoles(): array
+//    {
+//        $roles = $this->roles;
+//        // guarantee every user at least has ROLE_USER
+//        $roles[] = 'ROLE_USER';
+//        // removes duplicate values
+//        return array_unique($roles);
+//    }
 
     public function setRoles(array $roles): self
     {
@@ -155,6 +161,40 @@ class User implements UserInterface
     public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function __construct()
+    {
+        $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
+        //  guarantee every user at least has ROLE_USER
+        //  $this->roles[] = new Role('ROLE_USER');
+    }
+
+    public function getRoles(): array
+    {
+        $roles = [];
+        foreach ($this->roles->toArray() as $role) {
+            $roles[] = $role->getName();
+        }
+        return array_unique(dump($roles));
+    }
+
+    public function addRole(Role $role): self
+    {
+        if (!$this->roles->contains($role)) {
+            $this->roles[] = $role;
+        }
+
+        return $this;
+    }
+
+    public function removeRole(Role $role): self
+    {
+        if ($this->roles->contains($role)) {
+            $this->roles->removeElement($role);
+        }
 
         return $this;
     }

@@ -45,8 +45,19 @@ registration:
    controller: App\Controller\RegistrationController::register
 
 role:
-   path: /admin/user/role
-   controller: App\Controller\RoleController:index
+   path: /admin/role
+   controller: App\Controller\RoleController::index
+
+createRole:
+   path: /admin/role/create
+   controller: App\Controller\RoleController::create
+
+deleteRole:
+   path: /admin/role/{roleId}/delete
+   defaults: { roleId: null}
+   requirements:
+      page: '\d+'
+   controller: App\Controller\RoleController::delete
 
 login:
    path: /login

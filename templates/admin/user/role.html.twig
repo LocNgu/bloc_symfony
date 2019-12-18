@@ -2,4 +2,25 @@
 
 {% block content %}
 <h1>Roles</h1>
+    <a class="btn" href="{{ path('createRole') }}">add</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Roles</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for role in roles %}
+            <tr>
+                <td>{{ role.getId() }}</td>
+                <td>{{ role.getName() }}</td>
+                <td><a class="btn" href="">edit</a></td>
+                <td><a class="btn cancel" href="{{ path('deleteRole', {roleId: role.getId}) }}">delete</a></td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

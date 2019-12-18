@@ -2,14 +2,51 @@
 
 namespace App\Controller;
 
+use App\Entity\Role;
+use App\Form\RoleFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 class RoleController extends AbstractController
 {
     public function index()
     {
+        $em = $this->getDoctrine()->getManager();
+        $roles = $em->getRepository(Role::class)->findAll();
+
         return $this->render(
-            'admin/user/role.html.twig'
+            'admin/user/role.html.twig',
+            ['roles' => $roles]
         );
+    }
+
+    public function create(Request $request)
+    {
+        $role = new Role();
+
+        $form = $this->createForm(RoleFormType::class, $role);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $role = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($role);
+            $em->flush();
+
+            return $this->redirectToRoute('role');
+        }
+
+        return  $this->render('admin/user/createRole.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    public function delete(Request $request, $roleId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $role = $em->getRepository(Role::class)->find($roleId);
+        $em->remove($role);
+        $em->flush();
+
+        return $this->redirectToRoute('role');
     }
 }

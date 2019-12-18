@@ -1,0 +1,11 @@
+{% extends 'admin/admin.html.twig' %}
+{% block content %}
+    <h1>Roles</h1>
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.save, { 'label': 'add' }) }}
+    <a class = "btn cancel" href="{{ path('role') }}">back</a>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

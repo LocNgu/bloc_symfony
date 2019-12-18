@@ -29,7 +29,7 @@ class UserController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $task = $form->getData();
+            $user = $form->getData();
 
             $em->persist($user);
             $em->flush();
