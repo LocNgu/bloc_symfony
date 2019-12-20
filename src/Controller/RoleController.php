@@ -22,12 +22,14 @@ class RoleController extends AbstractController
 
     public function create(Request $request)
     {
-        $role = new Role();
+        $role = new Role('');
 
         $form = $this->createForm(RoleFormType::class, $role);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $role = $form->getData();
+//            $role = $form->getData();
+            $name = $form->get('name')->getData();
+            $role->setName($name);
             $em = $this->getDoctrine()->getManager();
             $em->persist($role);
             $em->flush();
