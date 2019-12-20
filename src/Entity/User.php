@@ -168,17 +168,25 @@ class User implements UserInterface
     public function __construct()
     {
         $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
-        //  guarantee every user at least has ROLE_USER
-        //  $this->roles[] = new Role('ROLE_USER');
+    }
+
+    public function _getRoles()
+    {
+        return $this->roles;
     }
 
     public function getRoles(): array
     {
+        // TODO fix
+        //  workaround to get a php array
+        //  ArrayCollection required for ManyToMany Relation
+        //  php array required for Authenticator
         $roles = [];
         foreach ($this->roles->toArray() as $role) {
             $roles[] = $role->getName();
         }
-        return array_unique(dump($roles));
+
+        return array_unique($roles);
     }
 
     public function addRole(Role $role): self

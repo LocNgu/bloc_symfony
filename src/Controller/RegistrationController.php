@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Role;
 use App\Form\RegistrationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,6 +32,11 @@ class RegistrationController extends AbstractController
             );
 
             $entityManager = $this->getDoctrine()->getManager();
+            $role_user = $entityManager->getRepository(Role::class)->findOneBy(['name' => 'ROLE_USER']);
+            if (!$role_user) {
+                $role_user = new Role('ROLE_USER');
+            }
+            $user->addRole($role_user);
             $entityManager->persist($user);
             $entityManager->flush();
 
