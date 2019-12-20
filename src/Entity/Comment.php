@@ -1,12 +1,11 @@
 <?php
+
 namespace App\Entity;
-
-
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Comment
+ * Comment.
  *
  * @ORM\Table(name="comment")
  * @ORM\Entity
@@ -56,8 +55,6 @@ class Comment
      * @ORM\Column(name="published", type="boolean", nullable=false, options={"default"="1"})
      */
     private $published = '1';
-
-
 
     /**
      * Get id.
@@ -188,6 +185,4 @@ class Comment
     {
         return $this->published;
     }
-
-
 }

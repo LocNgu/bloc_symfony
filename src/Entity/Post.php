@@ -1,87 +1,91 @@
 <?php
+
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+
 /**
- * Post
+ * Post.
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
  * @ORM\Table(name="post")
  */
-
 class Post
 {
-    public function __construct($title, $author, $category, $publicationDate, $previewImg, $summary, $content, $published){
-        $this->title            = $title;
-        $this->author           = $author;
-        $this->category         = $category;
-        $this->publicationDate  = $publicationDate;
-        $this->previewImg       = $previewImg;
-        $this->summary          = $summary;
-        $this->content          = $content;
-        $this->published        = $published;
+    public function __construct($title, $author, $category, $publicationDate, $previewImg, $summary, $content, $published)
+    {
+        $this->title = $title;
+        $this->author = $author;
+        $this->category = $category;
+        $this->publicationDate = $publicationDate;
+        $this->previewImg = $previewImg;
+        $this->summary = $summary;
+        $this->content = $content;
+        $this->published = $published;
 
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-
-    * @ORM\Id
-    * @ORM\Column(type="integer")
-    * @ORM\GeneratedValue(strategy="AUTO")
-    * @var int
-    */
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @var int
+     */
     private $id;
 
     /**
-    * @ORM\Column(
-    *   type="datetime",
-    *   nullable=true
-    * )
-    */
+     * @ORM\Column(
+     *   type="datetime",
+     *   nullable=true
+     * )
+     */
     private $publicationDate;
 
     /**
-    * @ORM\Column(
-    *   type="string",
-    *   nullable=true
-    * )
-    */
+     * @ORM\Column(
+     *   type="string",
+     *   nullable=true
+     * )
+     */
     private $title;
 
     /**
-    * @ORM\Column(
-    *   type="string",
-    *   nullable=true
-    * )
-    */
+     * @ORM\Column(
+     *   type="string",
+     *   nullable=true
+     * )
+     */
     private $previewImg;
 
     /**
-    * @ORM\Column(
-    *   type="text",
-    *   nullable=true
-    * )
-    */
+     * @ORM\Column(
+     *   type="text",
+     *   nullable=true
+     * )
+     */
     private $summary;
 
     /**
-    * @ORM\Column(
-    *   type="text",
-    *   nullable=true
-    * )
-    */
+     * @ORM\Column(
+     *   type="text",
+     *   nullable=true
+     * )
+     */
     private $content;
 
     /**
-    * @ORM\Column(
-    *   type="boolean",
-    *   options={
-    *       "default":0
-    *   },
-    *   nullable=false
-    * )
-    */
+     * @ORM\Column(
+     *   type="boolean",
+     *   options={
+     *       "default":0
+     *   },
+     *   nullable=false
+     * )
+     */
     private $published = 0;
 
     /**
@@ -98,7 +102,7 @@ class Post
      */
     private $category;
 
-     /**
+    /**
      * @ORM\ManyToMany(targetEntity="Tag", inversedBy="posts")
      * @ORM\JoinTable(name="post_has_tags")
      */
@@ -261,8 +265,6 @@ class Post
     /**
      * Set author.
      *
-     * @param \Author|null $author
-     *
      * @return Post
      */
     public function setAuthor(\Author $author = null)
@@ -284,8 +286,6 @@ class Post
 
     /**
      * Set category.
-     *
-     * @param \Category|null $category
      *
      * @return Post
      */
@@ -309,8 +309,6 @@ class Post
     /**
      * Add tag.
      *
-     * @param \Tag $tag
-     *
      * @return Post
      */
     public function addTag(\Tag $tag)
@@ -324,9 +322,7 @@ class Post
     /**
      * Remove tag.
      *
-     * @param \Tag $tag
-     *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise
      */
     public function removeTag(\Tag $tag)
     {

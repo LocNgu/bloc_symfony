@@ -29,7 +29,8 @@ class RoleFormType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'name',
             ])
-            ->add('save', SubmitType::class)
+            ->add('save', SubmitType::class, [
+            ])
         ;
     }
 }

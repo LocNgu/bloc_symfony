@@ -13,7 +13,7 @@ class BlogController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $posts = $em->getRepository(Post::class)->findAll();
 
-        dump($posts);
+//        dump($posts);
         return $this->render(
             'blog/blog.html.twig',
             ['posts' => $posts]

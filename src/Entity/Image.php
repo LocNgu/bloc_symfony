@@ -1,21 +1,24 @@
 <?php
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+
 /**
- * Image
+ * Image.
  *
  * @ORM\Entity
  * @ORM\Table(name="image")
  */
-
 class Image
 {
-    public function __construct($title, $description, $imgPath){
+    public function __construct($title, $description, $imgPath)
+    {
         $this->title = $title;
         $this->description = $description;
         $this->imgPath = $imgPath;
     }
+
     /**
      * @var int
      *
@@ -45,7 +48,6 @@ class Image
      * @ORM\Column(name="description", type="text", length=65535, nullable=true)
      */
     private $description;
-
 
     /**
      * Get imageId.
@@ -128,5 +130,4 @@ class Image
     {
         return $this->description;
     }
-
 }

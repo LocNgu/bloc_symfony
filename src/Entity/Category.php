@@ -1,19 +1,22 @@
 <?php
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Category
+ * Category.
  *
  * @ORM\Table(name="category")
  * @ORM\Entity
  */
 class Category
 {
-    public function __construct($name){
+    public function __construct($name)
+    {
         $this->name = $name;
     }
+
     /**
      * @var int
      *

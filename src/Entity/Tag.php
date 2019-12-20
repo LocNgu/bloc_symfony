@@ -1,25 +1,27 @@
 <?php
+
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+
 /**
- * Tag
+ * Tag.
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\TagRepository")
  * @ORM\Table(name="tag")
  */
-
 class Tag
 {
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct($name)
     {
         $this->name = $name;
 
         $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
-
     }
 
     /**
@@ -42,6 +44,7 @@ class Tag
      * @ORM\ManyToMany(targetEntity="Post", mappedBy="tags")
      */
     private $posts;
+
     /**
      * Get tagId.
      *
@@ -84,9 +87,7 @@ class Tag
     /**
      * Remove post.
      *
-     * @param \Post $post
-     *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise
      */
     public function removePost(\Post $post)
     {
