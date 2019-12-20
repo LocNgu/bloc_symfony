@@ -24,19 +24,29 @@ class UserController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository(User::class)->find($userId);
-
         $form = $this->createForm(UserFormType::class, $user);
+        // get roles of this user
+        $roles = $user->_getRoles();
+        // to check checkboxes in role
+        $form->get('roles')->setData($roles);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
+            // add all checked roles
+            $roles = $form->get('roles')->getData();
+            foreach ($roles as $role) {
+                $user->addRole($role);
+            }
 
             $em->persist($user);
             $em->flush();
 
             return $this->redirectToRoute('user');
         }
-        return $this->render('admin/user/editUser.html.twig', [
+
+        return $this->render(
+            'admin/user/editUser.html.twig', [
             'form' => $form->createView(),
         ]);
     }
