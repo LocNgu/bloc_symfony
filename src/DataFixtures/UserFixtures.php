@@ -21,7 +21,7 @@ class UserFixtures extends Fixture
     {
         $user = new User();
         $user->setUsername('admin');
-        $user->addRole(new Role('ROLE_ADMIN'));
+        $user->setRole($role_admin);
         $user->setEmail('admin@admin.com');
         $user->setFirstname('ad');
         $user->setLastname('min');

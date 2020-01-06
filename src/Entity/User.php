@@ -189,7 +189,7 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
-    public function addRole(Role $role): self
+    public function setRole(Role $role): self
     {
         if (!$this->roles->contains($role)) {
             $this->roles[] = $role;

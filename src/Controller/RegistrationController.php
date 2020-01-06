@@ -36,7 +36,7 @@ class RegistrationController extends AbstractController
             if (!$role_user) {
                 $role_user = new Role('ROLE_USER');
             }
-            $user->addRole($role_user);
+            $user->setRole($role_user);
             $entityManager->persist($user);
             $entityManager->flush();
 
