@@ -29,7 +29,7 @@ class User implements UserInterface
 
     /**
      * @JoinTable(name="users_roles")
-     * @ManyToMany(targetEntity="Role", inversedBy="users")
+     * @ManyToMany(targetEntity="Role", inversedBy="users", cascade={"persist"})
      */
     private $roles = [];
 
