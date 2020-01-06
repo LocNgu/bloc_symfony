@@ -36,7 +36,7 @@ class UserController extends AbstractController
             // add all checked roles
             $roles = $form->get('roles')->getData();
             foreach ($roles as $role) {
-                $user->addRole($role);
+                $user->setRole($role);
             }
 
             $em->persist($user);

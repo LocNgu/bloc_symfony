@@ -16,8 +16,10 @@
             <tr>
                 <td>{{ role.getId() }}</td>
                 <td>{{ role.getName() }}</td>
-                <td><a class="btn" href="">edit</a></td>
-                <td><a class="btn cancel" href="{{ path('deleteRole', {roleId: role.getId}) }}">delete</a></td>
+                <td>
+                    <a class="btn" href="{{ path('rolePosts', {roleId: role.getId}) }}">Posts</a>
+                    <a class="btn" href="{{ path('editRole', {roleId: role.getId}) }}">Edit</a>
+                    <a class="btn cancel" href="{{ path('deleteRole', {roleId: role.getId}) }}">delete</a></td>
             </tr>
 
             {% endfor %}

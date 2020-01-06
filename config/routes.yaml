@@ -52,6 +52,20 @@ createRole:
    path: /admin/role/create
    controller: App\Controller\RoleController::create
 
+editRole:
+   path: /admin/role/{roleId}/edit
+   defaults: { roleId: null}
+   requirements:
+      page: '\d+'
+   controller: App\Controller\RoleController::edit
+
+roleUsers:
+   path: /admin/role/{roleId}/users
+   defaults: { roleId: null}
+   requirements:
+      page: '\d+'
+   controller: App\Controller\RoleController::getUsers
+   
 deleteRole:
    path: /admin/role/{roleId}/delete
    defaults: { roleId: null}
