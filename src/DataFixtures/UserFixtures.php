@@ -19,6 +19,11 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
+        $role_admin = new Role('ROLE_ADMIN');
+        $role_user = new Role('ROLE_USER');
+        $role_author = new Role('ROLE_AUTHOR');
+
+
         $user = new User();
         $user->setUsername('admin');
         $user->setRole($role_admin);
@@ -31,39 +36,31 @@ class UserFixtures extends Fixture
         ));
         $manager->persist($user);
 
-//        $user = new User();
-//        $user->setUsername('user');
-//        $user->addRole($role_user);
-//        $user->setEmail('user@user.com');
-//        $user->setFirstname('us');
-//        $user->setLastname('er');
-//        $user->setPassword($this->passwordEncoder->encodePassword(
-//            $user,
-//            'user'
-//        ));
-//        $manager->persist($user);
-//
-//        $user = new User();
-//        $user->setUsername('user2');
-//        $user->setEmail('john@doe.com');
-//        $user->setFirstname('john');
-//        $user->setLastname('doe');
-//        $user->setPassword($this->passwordEncoder->encodePassword(
-//            $user,
-//            'user'
-//        ));
-//        $manager->persist($user);
-//
-//        $user = new User();
-//        $user->setUsername('user3');
-//        $user->setEmail('jane@doe.com');
-//        $user->setFirstname('jane');
-//        $user->setLastname('doe');
-//        $user->setPassword($this->passwordEncoder->encodePassword(
-//            $user,
-//            'user'
-//        ));
-//        $manager->persist($user);
+        $user = new User();
+        $user->setUsername('user');
+        $user->setRole($role_admin);
+        $user->setRole($role_user);
+        $user->setEmail('user@user.com');
+        $user->setFirstname('us');
+        $user->setLastname('er');
+        $user->setPassword($this->passwordEncoder->encodePassword(
+           $user,
+           'user'
+        ));
+        $manager->persist($user);
+
+        $user = new User();
+        $user->setUsername('user2');
+        $user->setRole($role_user);
+        $user->setRole($role_author);
+        $user->setEmail('user2@user.com');
+        $user->setFirstname('us');
+        $user->setLastname('er');
+        $user->setPassword($this->passwordEncoder->encodePassword(
+           $user,
+           'user'
+        ));
+        $manager->persist($user);
 
         $manager->flush();
     }
