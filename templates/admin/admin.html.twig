@@ -5,7 +5,7 @@
 {% block title %}Adminpage{% endblock %}
 {% block navigationlist %}
     <li><a class = "nav-elem{% if app.request.get('_route') == 'admin' %} active{% endif %}" href = "{{ path('admin') }}">Dashboard</a></li>
-    <li><a {% if app.request.get('_route') == 'post' %} class = "active"{% endif %} href = "{{ path('post') }}">Post</a></li>
+    <li><a {% if app.request.get('_route') == 'post' %} class = "active"{% endif %} href = "{{ path('post') }}">Posts</a></li>
     <li><a {% if app.request.get('_route') == 'category' %} class = "active"{% endif %} href = "{{ path('category')}}">Categories</a></li>
     <li><a {% if app.request.get('_route') == 'tag' %} class = "active"{% endif %} href = "{{ path('tag')}}">Tags</a></li>
     <li class="dropdown">
