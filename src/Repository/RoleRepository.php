@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Role;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\NonUniqueResultException;
 
 /**
  * @method Role|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,44 +15,16 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class RoleRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Role::class);
-    }
-
-    // /**
-    //  * @return Role[] Returns an array of Role objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
     public function findOneByName($name): ?Role
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.name = :val')
-            ->setParameter('val', $name)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        try {
+            return $this->createQueryBuilder('r')
+                ->andWhere('r.name = :val')
+                ->setParameter('val', $name)
+                ->getQuery()
+                ->getOneOrNullResult();
+        } catch (NonUniqueResultException $e) {
+            echo 'Caught exception: '.$e->getMessage(), "\n";
+        }
     }
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

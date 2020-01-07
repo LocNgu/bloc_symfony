@@ -25,7 +25,6 @@ class RoleController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository(User::class)->findByRole($roleId);
-        dump($users);
 
         return $this->render(
             'admin/user/user.html.twig',
@@ -60,7 +59,6 @@ class RoleController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $role = $em->getRepository(Role::class)->find($roleId);
         $form = $this->createForm(RoleFormType::class, $role);
-        dump($form->getData());
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // $name = $form->get('name')->getData();
