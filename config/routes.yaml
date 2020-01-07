@@ -18,6 +18,31 @@ category:
    path: /admin/category
    controller: App\Controller\CategoryController::index
 
+createCategory:
+   path: /admin/category/create
+   controller: App\Controller\CategoryController::create
+
+editCategory:
+   path: /admin/category/{categoryId}/edit
+   defaults: { categoryId: null}
+   requirements:
+      page: '\d+'
+   controller: App\Controller\CategoryController::edit
+
+categoryPosts:
+   path: /admin/category/{categoryId}/categorys
+   defaults: { categoryId: null}
+   requirements:
+      page: '\d+'
+   controller: App\Controller\CategoryController::getPosts
+
+deleteCategory:
+   path: /admin/category/{categoryId}/delete
+   defaults: { categoryId: null}
+   requirements:
+      page: '\d+'
+   controller: App\Controller\CategoryController::delete
+
 tag:
    path: /admin/tag
    controller: App\Controller\TagController::index

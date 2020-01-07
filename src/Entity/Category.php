@@ -2,19 +2,21 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Category.
  *
  * @ORM\Table(name="category")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  */
 class Category
 {
     public function __construct($name)
     {
         $this->name = $name;
+        $this->posts = new ArrayCollection();
+
     }
 
     /**
@@ -32,6 +34,11 @@ class Category
      * @ORM\Column(name="name", type="string", length=50, nullable=false)
      */
     private $name;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="category")
+     */
+    private $posts;
 
     /**
      * Get categoryId.

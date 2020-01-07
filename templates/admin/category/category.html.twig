@@ -1,0 +1,29 @@
+{% extends './admin/admin.html.twig' %}
+
+{% block content %}
+    <h1>Categories</h1>
+    <a class="btn" href="{{ path('createCategory') }}">add</a>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Categories</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for category in categories %}
+            <tr>
+                <td>{{ category.getId() }}</td>
+                <td>{{ category.getName() }}</td>
+                <td>
+                    <a class="btn" href="{{ path('categoryPosts', {categoryId: category.getId}) }}">Posts</a>
+                    <a class="btn" href="{{ path('editCategory', {categoryId: category.getId}) }}">Edit</a>
+                    <a class="btn cancel" href="{{ path('deleteCategory', {categoryId: category.getId}) }}">delete</a>
+                </td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
