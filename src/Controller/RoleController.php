@@ -14,21 +14,25 @@ class RoleController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $roles = $em->getRepository(Role::class)->findAll();
+
         return $this->render(
             'admin/user/role.html.twig',
             ['roles' => $roles]
         );
     }
 
-    public function getUsers($roleId){
+    public function getUsers($roleId)
+    {
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository(User::class)->findByRole($roleId);
         dump($users);
+
         return $this->render(
             'admin/user/user.html.twig',
             ['users' => $users]
         );
     }
+
     public function create(Request $request)
     {
         $role = new Role('');

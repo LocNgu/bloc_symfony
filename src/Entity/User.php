@@ -178,14 +178,14 @@ class User implements UserInterface
     public function getRoles(): array
     {
         // TODO fix
-        //  workaround to get a php array
+        //  workaround to get a php array with names only
         //  ArrayCollection required for ManyToMany Relation
         //  php array required for Authenticator
+        //  toArray() returns exact representation of the collection
         $roles = [];
         foreach ($this->roles->toArray() as $role) {
             $roles[] = $role->getName();
         }
-
         return array_unique($roles);
     }
 
