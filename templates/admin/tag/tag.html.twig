@@ -1,0 +1,29 @@
+{% extends './admin/admin.html.twig' %}
+
+{% block content %}
+<h1>Tags</h1>
+    <a class="btn" href="{{ path('createTag') }}">add</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tags</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tag in tags %}
+            <tr>
+                <td>{{ tag.getId() }}</td>
+                <td>{{ tag.getName() }}</td>
+                <td>
+                    <a class="btn" href="{{ path('tagPosts', {tagId: tag.getId}) }}">Posts</a>
+                    <a class="btn" href="{{ path('editTag', {tagId: tag.getId}) }}">Edit</a>
+                    <a class="btn cancel" href="{{ path('deleteTag', {tagId: tag.getId}) }}">delete</a>
+                </td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

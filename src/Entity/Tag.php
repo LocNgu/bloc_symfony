@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Tag.
@@ -16,12 +15,14 @@ class Tag
 {
     /**
      * Constructor.
+     *
+     * @param $name
      */
     public function __construct($name)
     {
         $this->name = $name;
 
-        $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->posts = new ArrayCollection();
     }
 
     /**
@@ -87,19 +88,25 @@ class Tag
     /**
      * Remove post.
      *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise
+     * @param Post $post
+     * @return Tag TRUE if this collection contained the specified element, FALSE otherwise
      */
-    public function removePost(\Post $post)
+    public function removePost(Post $post): self
     {
-        return $this->posts->removeElement($post);
+        if ($this->posts->contains($post)) {
+            $this->posts->removeElement($post);
+            $post->removeTag($this);
+        }
+
+        return $this;
     }
 
     /**
      * Get posts.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
-    public function getPosts()
+    public function getPosts(): Collection
     {
         return $this->posts;
     }

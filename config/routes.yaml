@@ -22,6 +22,32 @@ tag:
    path: /admin/tag
    controller: App\Controller\TagController::index
 
+createTag:
+   path: /admin/tag/create
+   controller: App\Controller\TagController::create
+
+editTag:
+   path: /admin/tag/{tagId}/edit
+   defaults: { tagId: null}
+   requirements:
+      page: '\d+'
+   controller: App\Controller\TagController::edit
+
+tagPosts:
+   path: /admin/tag/{tagId}/tags
+   defaults: { tagId: null}
+   requirements:
+      page: '\d+'
+   controller: App\Controller\TagController::getPosts
+
+deleteTag:
+   path: /admin/tag/{tagId}/delete
+   defaults: { tagId: null}
+   requirements:
+      page: '\d+'
+   controller: App\Controller\TagController::delete
+
+
 user:
    path: /admin/user
    controller: App\Controller\UserController::index
