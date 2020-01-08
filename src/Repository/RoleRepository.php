@@ -15,6 +15,11 @@ use Doctrine\ORM\NonUniqueResultException;
  */
 class RoleRepository extends ServiceEntityRepository
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Role::class);
+    }
+
     public function findOneByName($name): ?Role
     {
         try {
