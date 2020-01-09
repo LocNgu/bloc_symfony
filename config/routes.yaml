@@ -14,6 +14,24 @@ post:
    path: /admin/post
    controller: App\Controller\PostController::index
 
+createPost:
+   path: /admin/post/create
+   controller: App\Controller\PostController::create
+
+editPost:
+   path: /admin/post/{postId}/edit
+   defaults: { postId: null}
+   requirements:
+      page: '\d+'
+   controller: App\Controller\PostController::edit
+
+deletePost:
+   path: /admin/post/{postId}/delete
+   defaults: { postId: null}
+   requirements:
+      page: '\d+'
+   controller: App\Controller\PostController::delete
+
 category:
    path: /admin/category
    controller: App\Controller\CategoryController::index
