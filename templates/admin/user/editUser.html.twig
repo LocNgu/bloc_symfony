@@ -9,7 +9,6 @@
         {{ form_row(form.lastname) }}
         {{ form_row(form.email) }}
         {{ form_row(form.roles) }}
-{#        {{ form_row(form.save, { 'label': 'Submit me' }) }}#}
         {{ form_widget(form.save, {'attr': {'class': 'btn'}}) }}
         <a class = "btn cancel" href="{{ path('user') }}">back</a>
     {{ form_end(form) }}
