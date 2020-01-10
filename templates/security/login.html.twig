@@ -1,8 +1,6 @@
 {% extends 'base.html.twig' %}
 {%  block body %}
-{% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
+
 <article class = "authentication-form">
     <form action = "{{ path('login') }}" method = "post" >
         <label for = "username">Username:</label>
@@ -16,7 +14,9 @@
 
         {# crsf protection token #}
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
+        {% if error %}
+            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
         <button class = "submit" type = "submit">login</button>
         <a class = "btn cancel" href = "{{ path('blog') }}">cancel</a>
 
