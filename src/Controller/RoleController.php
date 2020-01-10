@@ -61,10 +61,7 @@ class RoleController extends AbstractController
         $form = $this->createForm(RoleFormType::class, $role);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // $name = $form->get('name')->getData();
-            // $role->setName($name);
             $role = $form->getData();
-            dump($role);
             $em->persist($role);
             $em->flush();
 
