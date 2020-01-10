@@ -1,0 +1,48 @@
+{% extends 'admin/admin.html.twig' %}
+{%  block content %}
+    <h1>Post</h1>
+    <a class="btn" href="{{ path('createPost') }}">add</a>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Author</th>
+            <th>Title</th>
+            <th>Publicationdate</th>
+            <th>Category</th>
+            <th>Public</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+            <tr>
+                <td>{{ post.getId() }}</td>
+                {% if  post.getAuthor %}
+                    <td>{{ post.getAuthor().getFullname() }}</td>
+                {% else %}
+                    <td></td>
+                {% endif %}
+                <td>{{ post.getTitle() }}</td>
+                {% if post.getPublicationDate() %}
+                    <td>{{ post.getPublicationDate().format('Y-m-d') }}</td>
+                {% else %}
+                    <td>null</td>
+                {% endif %}
+                <td>{{ post.getCategory().getName() }}</td>
+                <td>
+                    {% if post.getPublic() %}
+                        {{ 'yes' }}</td>
+                    {% else %}
+                        {{ 'no' }}
+                    {% endif %}
+                <td>
+                    <a class="btn" href="{{  path('editPost', {postId: post.getId()}) }}">edit</a>
+                    <a class="btn cancel" href="{{ path('deletePost', {postId: post.getId()}) }}">delete</a>
+                </td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

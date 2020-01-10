@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\ManyToMany;
 
 /**
  * Post.
@@ -14,17 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Post
 {
-    public function __construct($title, $author, $category, $publicationDate, $previewImg, $summary, $content, $published)
+    public function __construct()
     {
-        $this->title = $title;
-        $this->author = $author;
-        $this->category = $category;
-        $this->publicationDate = $publicationDate;
-        $this->previewImg = $previewImg;
-        $this->summary = $summary;
-        $this->content = $content;
-        $this->published = $published;
-
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -81,7 +73,7 @@ class Post
      * @ORM\Column(
      *   type="boolean",
      *   options={
-     *       "default":0
+     *       "default":false
      *   },
      *   nullable=false
      * )
@@ -89,24 +81,21 @@ class Post
     private $public;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Author")
-     * @ORM\JoinColumn(name="author_id",
-     * referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
      */
     private $author;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category")
-     * @ORM\JoinColumn(name="category_id",
-     * referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="posts")
      */
     private $category;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="posts")
-     * @ORM\JoinTable(name="post_has_tags")
+     * @ManyToMany(targetEntity="Tag", inversedBy="posts", cascade={"persist"})
+     * @JoinTable(name="posts_tags")
      */
-    private $tags;
+    private $tags = [];
 
     /**
      * Get id.
@@ -265,9 +254,10 @@ class Post
     /**
      * Set author.
      *
+     * @param User $author
      * @return Post
      */
-    public function setAuthor(\Author $author = null)
+    public function setAuthor(User $author)
     {
         $this->author = $author;
 
@@ -277,7 +267,7 @@ class Post
     /**
      * Get author.
      *
-     * @return \Author|null
+     * @return User|null
      */
     public function getAuthor()
     {
@@ -289,7 +279,7 @@ class Post
      *
      * @return Post
      */
-    public function setCategory(\Category $category = null)
+    public function setCategory(Category $category = null)
     {
         $this->category = $category;
 
@@ -299,7 +289,7 @@ class Post
     /**
      * Get category.
      *
-     * @return \Category|null
+     * @return Category|null
      */
     public function getCategory()
     {
@@ -311,7 +301,7 @@ class Post
      *
      * @return Post
      */
-    public function addTag(\Tag $tag)
+    public function addTag(Tag $tag)
     {
         $tag->addPost($this); // synchronously updating inverse side
         $this->tags[] = $tag;
@@ -324,7 +314,7 @@ class Post
      *
      * @return bool TRUE if this collection contained the specified element, FALSE otherwise
      */
-    public function removeTag(\Tag $tag)
+    public function removeTag(Tag $tag)
     {
         return $this->tags->removeElement($tag);
     }
