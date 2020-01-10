@@ -11,7 +11,7 @@ class BlogController extends AbstractController
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        $posts = $em->getRepository(Post::class)->findAll();
+        $posts = $em->getRepository(Post::class)->findAllPublic();
 
 //        dump($posts);
         return $this->render(

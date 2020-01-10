@@ -86,7 +86,7 @@ class Post
      *   nullable=false
      * )
      */
-    private $published = 0;
+    private $public;
 
     /**
      * @ORM\ManyToOne(targetEntity="Author")
@@ -241,13 +241,13 @@ class Post
     /**
      * Set published.
      *
-     * @param bool|null $published
+     * @param bool|null $public
      *
      * @return Post
      */
-    public function setPublished($published = null)
+    public function setPublic($public = false)
     {
-        $this->published = $published;
+        $this->public = $public;
 
         return $this;
     }
@@ -257,9 +257,9 @@ class Post
      *
      * @return bool|null
      */
-    public function getPublished()
+    public function getPublic(): ?bool
     {
-        return $this->published;
+        return $this->public;
     }
 
     /**
