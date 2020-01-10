@@ -76,21 +76,7 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return User
-     *
-     * @see UserInterface
-     */
-//    public function getRoles(): array
-//    {
-//        $roles = $this->roles;
-//        // guarantee every user at least has ROLE_USER
-//        $roles[] = 'ROLE_USER';
-//        // removes duplicate values
-//        return array_unique($roles);
-//    }
-
-    public function setRoles(array $roles): self
+    public function setRoles($roles): self
     {
         $this->roles = $roles;
 
@@ -170,22 +156,28 @@ class User implements UserInterface
         $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    public function _getRoles()
+    public function getRolesAC()
     {
         return $this->roles;
     }
 
+    public function setRolesAC($roles)
+    {
+        $this->setRoles($roles);
+    }
+
     public function getRoles(): array
     {
-        // TODO fix
-        //  workaround to get a php array with names only
-        //  ArrayCollection required for ManyToMany Relation
-        //  php array required for Authenticator
-        //  toArray() returns exact representation of the collection
+        // TODO
+        //  workaround to get a php array with string of names only
+        //  ArrayCollection is required for ManyToMany Relation
+        //  php array is required for builtin Authenticator
+        //  toArray() only returns exact representation of the collection
         $roles = [];
-        foreach ($this->roles->toArray() as $role) {
+        foreach ($this->roles as $role) {
             $roles[] = $role->getName();
         }
+
         return array_unique($roles);
     }
 
@@ -205,5 +197,10 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    public function getFullname(): ?string
+    {
+        return $this->firstname.' '.$this->lastname;
     }
 }

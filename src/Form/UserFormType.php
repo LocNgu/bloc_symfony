@@ -45,15 +45,14 @@ class UserFormType extends AbstractType
                 'label' => 'email',
             ])
             ->add('roles', EntityType::class, [
-                // looks for choices from this entity
                 'class' => Role::class,
                 // uses the role.name property as the visible option string
                 'choice_label' => 'name',
                 // renders a checkbox
                 'multiple' => true,
                 'expanded' => true,
-                // ignore reading / writing to object
-                'mapped' => false,
+                'property_path' => 'rolesAC',
+                'mapped' => true,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('role')
                         ->orderBy('role.name', 'ASC');
