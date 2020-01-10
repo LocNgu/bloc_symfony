@@ -77,7 +77,7 @@ class CategoryController extends AbstractController
         $posts = $em->getRepository(Post::class)->findAllByCategory($categoryId);
 
         return $this->render(
-            'admin/post.html.twig',
+            'admin/post/post.html.twig',
             ['posts' => $posts]
         );
     }

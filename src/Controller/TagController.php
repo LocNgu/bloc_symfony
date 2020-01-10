@@ -15,7 +15,7 @@ class TagController extends AbstractController
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        $tags = $em->getRepository(Tag::class)->findAll();
+        $tags = $em->getRepository(Tag::class)->findAllOrderedByName();
 
         return $this->render(
             'admin/tag/tag.html.twig',
@@ -78,7 +78,7 @@ class TagController extends AbstractController
         $posts = $em->getRepository(Post::class)->findAllByTag($tagId);
 
         return $this->render(
-            'admin/post.html.twig',
+            'admin/post/post.html.twig',
             ['posts' => $posts]
         );
     }
