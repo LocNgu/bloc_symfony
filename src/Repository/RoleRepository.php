@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\Role;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\ORM\NonUniqueResultException;
 
 /**
  * @method Role|null find($id, $lockMode = null, $lockVersion = null)
@@ -22,14 +21,11 @@ class RoleRepository extends ServiceEntityRepository
 
     public function findOneByName($name): ?Role
     {
-        try {
-            return $this->createQueryBuilder('r')
-                ->andWhere('r.name = :val')
-                ->setParameter('val', $name)
-                ->getQuery()
-                ->getOneOrNullResult();
-        } catch (NonUniqueResultException $e) {
-            echo 'Caught exception: '.$e->getMessage(), "\n";
-        }
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.name = :val')
+            ->setParameter('val', $name)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
     }
 }
