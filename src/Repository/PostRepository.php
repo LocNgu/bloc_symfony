@@ -9,14 +9,25 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 /**
  * @method Post|null find($id, $lockMode = null, $lockVersion = null)
  * @method Post|null findOneBy(array $criteria, array $orderBy = null)
- * @method Post[]    findAll()
- * @method Post[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+// * @method Post[]    findAll()
+ * @method Post[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class PostRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Post::class);
+    }
+
+    public function findAll()
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p, a, c')
+            ->innerJoin('p.author', 'a')
+            ->innerJoin('p.category', 'c')
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     public function findAllByTag($tagId)
@@ -32,7 +43,7 @@ class PostRepository extends ServiceEntityRepository
     public function findAllByCategory($categoryId)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.category = :val')
+            ->where('p.category = :val')
             ->setParameter('val', $categoryId)
             ->getQuery()
             ->getResult()
