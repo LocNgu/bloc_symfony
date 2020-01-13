@@ -48,7 +48,7 @@ editCategory:
    controller: App\Controller\CategoryController::edit
 
 categoryPosts:
-   path: /admin/category/{categoryId}/categorys
+   path: /admin/category/{categoryId}/posts
    defaults: { categoryId: null}
    requirements:
       page: '\d+'
@@ -77,7 +77,7 @@ editTag:
    controller: App\Controller\TagController::edit
 
 tagPosts:
-   path: /admin/tag/{tagId}/tags
+   path: /admin/tag/{tagId}/posts
    defaults: { tagId: null}
    requirements:
       page: '\d+'
