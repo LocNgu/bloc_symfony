@@ -8,6 +8,7 @@
             <tr>
                 <th>ID</th>
                 <th>Tags</th>
+                <th>#Posts</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -15,7 +16,8 @@
             {% for tag in tags %}
             <tr>
                 <td>{{ tag.getId() }}</td>
-                <td>{{ tag.getName() }}</td>
+                <td><a href="{{ path('tagPosts', {tagId: tag.getId}) }}">{{ tag.getName() }}</a></td>
+                <td>{{ tag.posts.count }}</td>
                 <td>
                     <a class="btn" href="{{ path('tagPosts', {tagId: tag.getId}) }}">Posts</a>
                     <a class="btn" href="{{ path('editTag', {tagId: tag.getId}) }}">Edit</a>

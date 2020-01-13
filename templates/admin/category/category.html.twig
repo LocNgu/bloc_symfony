@@ -8,6 +8,7 @@
         <tr>
             <th>ID</th>
             <th>Categories</th>
+            <th>Posts</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -15,7 +16,8 @@
         {% for category in categories %}
             <tr>
                 <td>{{ category.getId() }}</td>
-                <td>{{ category.getName() }}</td>
+                <td><a href="{{ path('categoryPosts', {categoryId: category.getId}) }}"> {{ category.getName() }}</a></td>
+                <td>{{ category.posts.count }}</td>
                 <td>
                     <a class="btn" href="{{ path('categoryPosts', {categoryId: category.getId}) }}">Posts</a>
                     <a class="btn" href="{{ path('editCategory', {categoryId: category.getId}) }}">Edit</a>
