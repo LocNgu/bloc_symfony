@@ -5,24 +5,25 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Tag.
  *
  * @ORM\Entity(repositoryClass="App\Repository\TagRepository")
  * @ORM\Table(name="tag")
+ * @UniqueEntity(
+ *     "name",
+ *     message="Tag already exist")
  */
 class Tag
 {
     /**
      * Constructor.
-     *
-     * @param $name
      */
-    public function __construct($name)
+    public function __construct()
     {
-        $this->name = $name;
-
         $this->posts = new ArrayCollection();
     }
 
@@ -37,7 +38,8 @@ class Tag
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Name should not be blank.")
+     * @Assert\Unique
      * @ORM\Column(name="name", type="string", length=45, nullable=false, unique=true))
      */
     private $name;
@@ -81,9 +83,13 @@ class Tag
         return $this->name;
     }
 
-    public function addPost(Post $post)
+    public function addPost(Post $post): self
     {
+        if (!$this->posts->contains($post)) {
         $this->posts[] = $post;
+//            $post->addTag($this);
+    }
+        return $this;
     }
 
     /**
@@ -104,11 +110,14 @@ class Tag
 
     /**
      * Get posts.
-     *
-     * @return Collection
      */
     public function getPosts(): Collection
     {
         return $this->posts;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }

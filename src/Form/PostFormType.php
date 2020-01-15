@@ -50,6 +50,7 @@ class PostFormType extends AbstractType
 //            ->add('newTag', TextType::class, [
 //                'label' => 'tag',
 //                'mapped' => false,
+//                'required' => false,
 //            ])
 //            ->add('tags', EntityType::class, [
 //                'class' => Tag::class,
@@ -58,9 +59,13 @@ class PostFormType extends AbstractType
 //                'expanded' => true,
 //            ])
             ->add('tags', CollectionType::class, [
+                'label' => false,
                 'entry_type' => TagFormType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'mapped' => false,
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,

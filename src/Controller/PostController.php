@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Entity\Tag;
 use App\Form\PostFormType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -14,7 +15,6 @@ class PostController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $posts = $em->getRepository(Post::class)->findAll();
-        dump($posts);
 
         return $this->render(
             'admin/post/post.html.twig',
@@ -30,7 +30,6 @@ class PostController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $post = $form->getData();
-//            $post->addTag(new Tag($form->get('newTag')->getData()));
             $em = $this->getDoctrine()->getManager();
             $em->persist($post);
             $em->flush();
@@ -48,11 +47,35 @@ class PostController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $post = $em->getRepository(Post::class)->find($postId);
 
+        $originalTags = new ArrayCollection();
+        $originalTags = $post->getTags();
+
         $form = $this->createForm(PostFormType::class, $post);
+        $form->get('tags')->setData($originalTags);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $post = $form->getData();
+            $tags = $form->get('tags')->getData();
+            $tagRepository = $em->getRepository(Tag::class);
+
+            // remove tags
+            foreach ($originalTags as $tag) {
+                if (false == $form->get('tags')->getData()->contains($tag)) {
+                    $post->removeTag($tag);
+                }
+            }
+
+            foreach ($tags as $tag) {
+                $tagRes = $tagRepository->findOneBy(['name' => $tag->getName()]);
+                if ($tagRes) {
+                    // add existing tags
+                    $post->addTag($tagRes);
+                } else {
+                    // add new tags
+                    $em->persist($tag);
+                    $post->addTag($tag);
+                }
+            }
             $em->persist($post);
             $em->flush();
 

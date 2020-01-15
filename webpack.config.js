@@ -18,7 +18,8 @@ Encore
     .enableSassLoader()
 
     .addEntry('app', './assets/js/app.js')
-    .addEntry('lazy', './assets/js/lazy')
+    .addEntry('lazy', './assets/js/lazy.js')
+    .addEntry('addTagsInPost', './assets/js/addTagsInPost.js')
     .addStyleEntry('main', './public/scss/main.scss')
     .addStyleEntry('entries', './public/scss/entries.scss')
     .addStyleEntry('gallery', './public/scss/gallery.scss')

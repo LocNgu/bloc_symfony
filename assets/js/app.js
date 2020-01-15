@@ -16,3 +16,4 @@ console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
 // for toTop button
 const toTop = require('./toTop');
 
+const addTagsInPost = require('./addTagsInPost');

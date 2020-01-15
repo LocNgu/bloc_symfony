@@ -93,7 +93,7 @@ class Post
     private $category;
 
     /**
-     * @ManyToMany(targetEntity="Tag", inversedBy="posts", cascade={"persist"})
+     * @ManyToMany(targetEntity="Tag", inversedBy="posts", orphanRemoval=true)
      * @JoinTable(name="posts_tags")
      */
     private $tags = [];
@@ -278,6 +278,7 @@ class Post
     /**
      * Set category.
      *
+     * @param Category|null $category
      * @return Post
      */
     public function setCategory(Category $category = null)
@@ -300,12 +301,15 @@ class Post
     /**
      * Add tag.
      *
+     * @param Tag $tag
      * @return Post
      */
-    public function addTag(Tag $tag)
+    public function addTag(Tag $tag): self
     {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
         $tag->addPost($this); // synchronously updating inverse side
-        $this->tags[] = $tag;
+        }
 
         return $this;
     }
@@ -313,11 +317,16 @@ class Post
     /**
      * Remove tag.
      *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise
+     * @param Tag $tag
+     * @return Post TRUE if this collection contained the specified element, FALSE otherwise
      */
-    public function removeTag(Tag $tag)
+    public function removeTag(Tag $tag): self
     {
-        return $this->tags->removeElement($tag);
+        if ($this->tags->contains($tag)) {
+            $this->tags->removeElement($tag);
+        }
+
+        return $this;
     }
 
     /**
