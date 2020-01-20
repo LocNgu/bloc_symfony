@@ -25,6 +25,7 @@ class PostRepository extends ServiceEntityRepository
             ->select('p, a, c')
             ->innerJoin('p.author', 'a')
             ->innerJoin('p.category', 'c')
+            ->orderBy('p.publicationDate', 'desc')
             ->getQuery()
             ->getResult()
             ;
@@ -35,6 +36,7 @@ class PostRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
             ->andWhere(':val MEMBER OF p.tags')
             ->setParameter('val', $tagId)
+            ->orderBy('p.publicationDate', 'desc')
             ->getQuery()
             ->getResult()
             ;

@@ -13,9 +13,11 @@ class TagFixtures extends Fixture
      */
     public function load(ObjectManager $manager)
     {
-        $tags = ['tech', 'news', 'coding', 'travel'];
+        $tags = ['tech', 'news', 'coding', 'c++', 'symfony'];
         foreach ($tags as $tag) {
-            $manager->persist(new Tag($tag));
+            $newTag = new Tag();
+            $newTag->setName($tag);
+            $manager->persist($newTag);
         }
         $manager->flush();
     }
