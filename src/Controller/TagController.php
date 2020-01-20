@@ -8,6 +8,7 @@ use App\Form\TagFormType;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class TagController extends AbstractController
 {
@@ -23,18 +24,22 @@ class TagController extends AbstractController
         );
     }
 
-    public function create(Request $request)
+    public function create(Request $request, ValidatorInterface $validator)
     {
-        $tag = new Tag('');
+        $tag = new Tag();
 
         $form = $this->createForm(TagFormType::class, $tag);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $tag = $form->getData();
             $em = $this->getDoctrine()->getManager();
+
+            if ($em->getRepository(Tag::class)->findOneBy(['name' => $tag->getName()])) {
+
+            }
+
             $em->persist($tag);
             $em->flush();
-
             return $this->redirectToRoute('tag');
         }
 

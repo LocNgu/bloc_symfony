@@ -86,9 +86,9 @@ class Tag
     public function addPost(Post $post): self
     {
         if (!$this->posts->contains($post)) {
-        $this->posts[] = $post;
-//            $post->addTag($this);
-    }
+            $this->posts[] = $post;
+            $post->addTag($this);
+        }
         return $this;
     }
 

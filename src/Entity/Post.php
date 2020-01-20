@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinTable;
@@ -93,7 +92,7 @@ class Post
     private $category;
 
     /**
-     * @ManyToMany(targetEntity="Tag", inversedBy="posts", orphanRemoval=true)
+     * @ManyToMany(targetEntity="Tag", inversedBy="posts")
      * @JoinTable(name="posts_tags")
      */
     private $tags = [];
@@ -244,8 +243,6 @@ class Post
 
     /**
      * Get public.
-     *
-     * @return bool|null
      */
     public function getPublic(): ?bool
     {
@@ -308,7 +305,7 @@ class Post
     {
         if (!$this->tags->contains($tag)) {
             $this->tags[] = $tag;
-        $tag->addPost($this); // synchronously updating inverse side
+            $tag->addPost($this); // synchronously updating inverse side
         }
 
         return $this;
@@ -324,6 +321,7 @@ class Post
     {
         if ($this->tags->contains($tag)) {
             $this->tags->removeElement($tag);
+            $tag->removePost($this);
         }
 
         return $this;
