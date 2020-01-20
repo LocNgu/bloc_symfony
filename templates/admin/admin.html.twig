@@ -27,7 +27,8 @@
         {% block content %}
         {% endblock %}
     </div>
-    {% block scripts %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
     {% endblock %}
 {% endblock %}
 {% block footer %}
