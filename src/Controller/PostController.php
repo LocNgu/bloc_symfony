@@ -8,6 +8,10 @@ use App\Form\PostFormType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class PostController extends AbstractController
 {
@@ -97,5 +101,28 @@ class PostController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute('post');
+    }
+
+    public function serialize()
+    {
+        $post = $this->getDoctrine()->getManager()->getRepository(Post::class)->findOneBy(['title' => 'Hello World']);
+
+        $defaultContext = [
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return $object->getName();
+            },
+        ];
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $jsonContent = $serializer->serialize($post, 'json');
+
+        echo $jsonContent;
+        return $this->render(
+            'base.html.twig'
+        );
     }
 }

@@ -32,6 +32,10 @@ deletePost:
       page: '\d+'
    controller: App\Controller\PostController::delete
 
+serializePost:
+   path: /post/serialize
+   controller: App\Controller\PostController::serialize
+
 category:
    path: /admin/category
    controller: App\Controller\CategoryController::index
@@ -90,6 +94,9 @@ deleteTag:
       page: '\d+'
    controller: App\Controller\TagController::delete
 
+serializeTag:
+   path: /admin/tag/serialize
+   controller: App\Controller\TagController::serialize
 
 user:
    path: /admin/user
@@ -108,6 +115,10 @@ deleteUser:
    requirements:
       page: '\d+'
    controller: App\Controller\UserController::delete
+
+serializeUser:
+   path: /admin/user/serialize
+   controller: App\Controller\UserController::serialize
 
 registration:
    path: /admin/user/create
@@ -151,6 +162,9 @@ logout:
    path: /logout
    methods: GET
 
+json:
+   path: /admin/json
+   controller: App\Controller\AdminController::index
 
 
 

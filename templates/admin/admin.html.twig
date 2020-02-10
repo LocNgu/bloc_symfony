@@ -20,6 +20,7 @@
             </li>
         </ul>
     </li>
+    <li><a {% if app.request.get('_route') == 'json' %} class = "active"{% endif %} href = "{{ path('json')}}">json</a></li>
     <li class = "logout"><a  href = "{{ path('logout') }}">Logout</a></li>
 {% endblock %}
 {% block body %}

@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -46,6 +47,8 @@ class Tag
 
     /**
      * @ORM\ManyToMany(targetEntity="Post", mappedBy="tags")
+     *
+     * @MaxDepth(1)
      */
     private $posts;
 
@@ -89,13 +92,13 @@ class Tag
             $this->posts[] = $post;
             $post->addTag($this);
         }
+
         return $this;
     }
 
     /**
      * Remove post.
      *
-     * @param Post $post
      * @return Tag TRUE if this collection contained the specified element, FALSE otherwise
      */
     public function removePost(Post $post): self
