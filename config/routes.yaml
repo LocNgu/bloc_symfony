@@ -33,8 +33,12 @@ deletePost:
    controller: App\Controller\PostController::delete
 
 serializePost:
-   path: /post/serialize
+   path: /admin/post/serialize
    controller: App\Controller\PostController::serialize
+
+deserializePost:
+   path: /admin/post/deserialize
+   controller: App\Controller\PostController::deserialize
 
 category:
    path: /admin/category
@@ -120,6 +124,10 @@ serializeUser:
    path: /admin/user/serialize
    controller: App\Controller\UserController::serialize
 
+deserialize:
+   path: /admin/user/deserialize
+   controller: App\Controller\UserController::deserialize
+
 registration:
    path: /admin/user/create
    controller: App\Controller\RegistrationController::register
@@ -164,7 +172,9 @@ logout:
 
 json:
    path: /admin/json
-   controller: App\Controller\AdminController::index
+   controller: App\Controller\JsonController::index
+
+
 
 
 

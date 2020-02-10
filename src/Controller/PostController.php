@@ -105,24 +105,42 @@ class PostController extends AbstractController
 
     public function serialize()
     {
-        $post = $this->getDoctrine()->getManager()->getRepository(Post::class)->findOneBy(['title' => 'Hello World']);
+        $post = $this->getDoctrine()->getManager()->getRepository(Post::class)->findAll();
+
+        $dateCallback = function ($innerObject, $outerObject, string $attributeName, string $format = null, array $context = []) {
+            return $innerObject instanceof \DateTime ? $innerObject->format(\DateTime::ISO8601) : '';
+        };
 
         $defaultContext = [
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
                 return $object->getName();
             },
+            AbstractNormalizer::ATTRIBUTES => [
+                'id',
+                'title',
+                'previewImg',
+                'summary',
+                'content',
+                'public',
+                'author' => ['id'],
+                'category' => ['id'],
+                'publicationDate',
+            ],
+            AbstractNormalizer::CALLBACKS => [
+                'publicationDate' => $dateCallback,
+            ],
         ];
 
         $encoders = [new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
+        $normalizers = [new ObjectNormalizer(null, null, null, null, null, null, $defaultContext)];
 
         $serializer = new Serializer($normalizers, $encoders);
 
-        $jsonContent = $serializer->serialize($post, 'json');
+        $result = $serializer->serialize($post, 'json');
 
-        echo $jsonContent;
         return $this->render(
-            'base.html.twig'
+            '/admin/json.html.twig',
+            ['result' => $result],
         );
     }
 }
