@@ -124,7 +124,7 @@ serializeUser:
    path: /admin/user/serialize
    controller: App\Controller\UserController::serialize
 
-deserialize:
+deserializeUser:
    path: /admin/user/deserialize
    controller: App\Controller\UserController::deserialize
 

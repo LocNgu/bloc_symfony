@@ -7,7 +7,9 @@ use App\Entity\Tag;
 use App\Form\PostFormType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -125,6 +127,7 @@ class PostController extends AbstractController
                 'author' => ['id'],
                 'category' => ['id'],
                 'publicationDate',
+                'tags' => ['id'],
             ],
             AbstractNormalizer::CALLBACKS => [
                 'publicationDate' => $dateCallback,
@@ -138,9 +141,20 @@ class PostController extends AbstractController
 
         $result = $serializer->serialize($post, 'json');
 
+        $response = new Response($result);
+        $disposition = HeaderUtils::makeDisposition(
+            HeaderUtils::DISPOSITION_ATTACHMENT,
+            'postexport.json'
+        );
+        $response->headers->set('Content-Disposition', $disposition);
+        return $response;
+    }
+
+    public function deserialize()
+    {
+
         return $this->render(
-            '/admin/json.html.twig',
-            ['result' => $result],
+            '/admin/json.html.twig'
         );
     }
 }

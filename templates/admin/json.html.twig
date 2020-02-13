@@ -1,7 +1,9 @@
 {% extends './admin/admin.html.twig' %}
 
 {% block content %}
-    {%  for result in results %}
-        {{ result }}
-    {% endfor %}
+{#    {% if results is defined %}#}
+        {%  for result in results %}
+            {{ result }}
+        {% endfor %}
+{#    {% endif %}#}
 {% endblock %}

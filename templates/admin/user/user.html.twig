@@ -3,36 +3,41 @@
 {% block body %}
     <div class = "frame">
         <h1>User</h1>
-            <a class = "btn" href="{{ path('registration') }}">Create User</a>
-            <table>
-                <thead>
+        <a class = "btn" href="{{ path('registration') }}">Create User</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Roles</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
                     <tr>
-                        <th>Username</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Roles</th>
-                        <th>Actions</th>
+                        <td>{{ user.getUsername() }}</td>
+                        <td>{{ user.getFirstname() }} {{ user.getLastname() }}</td>
+                        <td><a href="mailto:user.getEmail()">{{ user.getEmail() }}</a></td>
+                        <td>
+                            {% for role in user.getRoles() %}
+                                {{ role }}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <a class="btn" href="{{ path('editUser', {userId: user.getId}) }}">Edit</a>
+                            <a class="btn cancel" href="{{ path('deleteUser', {userId: user.getId}) }}">Delete</a>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    {% for user in users %}
-                        <tr>
-                            <td>{{ user.getUsername() }}</td>
-                            <td>{{ user.getFirstname() }} {{ user.getLastname() }}</td>
-                            <td><a href="mailto:user.getEmail()">{{ user.getEmail() }}</a></td>
-                            <td>
-                                {% for role in user.getRoles() %}
-                                    {{ role }}
-                                {% endfor %}
-                            </td>
-                            <td>
-                                <a class="btn" href="{{ path('editUser', {userId: user.getId}) }}">Edit</a>
-                                <a class="btn cancel" href="{{ path('deleteUser', {userId: user.getId}) }}">Delete</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-                </table>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a class = "btn" href="{{ path('serializeUser') }}">export json</a>
+        {{ form_start(form) }}
+            {{ form_widget(form.json, {'attr': {'class': 'btn'}}) }}
+            {{ form_row(form.import) }}
+        {{ form_end(form) }}
     </div>
 </form>
 {% endblock %}

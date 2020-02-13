@@ -32,7 +32,6 @@ class User implements UserInterface
     /**
      * @JoinTable(name="users_roles")
      * @ManyToMany(targetEntity="Role", inversedBy="users", cascade={"persist"})
-     * @MaxDepth(1)
      */
     private $roles = [];
 
@@ -60,6 +59,11 @@ class User implements UserInterface
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     /**
