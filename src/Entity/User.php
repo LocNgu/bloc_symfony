@@ -83,13 +83,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function setRoles($roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
     /**
      * @see UserInterface
      */
@@ -158,9 +151,31 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getFullname(): ?string
+    {
+        return $this->firstname.' '.$this->lastname;
+    }
+
     public function __construct()
     {
         $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function setRole(Role $role): self
+    {
+        if (!$this->roles->contains($role)) {
+            $this->roles[] = $role;
+        }
+
+        return $this;
+    }
+
+
+    public function setRoles($roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 
     public function getRolesAC()
@@ -188,15 +203,6 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
-    public function setRole(Role $role): self
-    {
-        if (!$this->roles->contains($role)) {
-            $this->roles[] = $role;
-        }
-
-        return $this;
-    }
-
     public function removeRole(Role $role): self
     {
         if ($this->roles->contains($role)) {
@@ -206,14 +212,10 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getFullname(): ?string
-    {
-        return $this->firstname.' '.$this->lastname;
-    }
-
     public function addRole(Role $role): self
     {
-        if (!$this->roles->contains($role)) {
+        dump($this->roles);
+        if (!in_array($role, $this->roles)) {
             $this->roles[] = $role;
         }
 
