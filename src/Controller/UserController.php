@@ -25,7 +25,7 @@ class UserController extends AbstractController
         $users = $em->getRepository(User::class)->findAll();
 
         // TODO
-        //  move form to seprate function
+        //  move form to separate function
         //import json form
         $form = $this->createForm(JsonUserFormType::class);
         $form->handleRequest($request);
@@ -50,7 +50,6 @@ class UserController extends AbstractController
 
                         $em->persist($user);
                         $em->flush();
-//                        $this->createUser($user);
                     }
                 }
             }
@@ -62,22 +61,6 @@ class UserController extends AbstractController
                 'form' => $form->createView(),
             ]
         );
-    }
-
-    public function createUser($user, UserPasswordEncoderInterface $encoder)
-    {
-        $new_user = new User();
-        $new_user->setUsername($user->getUsername());
-        $new_user->setRoles($user->getRoles());
-        $new_user->setEmail($user->getEmail());
-        $new_user->setFirstname($user->getFirstname());
-        $new_user->setLastname($user->getLastname());
-        // set default password?
-        $encoded = $encoder->encodePassword($user, 'password');
-        $new_user->setRoles($user->getRoles());
-        $new_user->setPassword($encoded);
-        $em->persist($new_user);
-        $em->flush();
     }
 
     public function edit(Request $request, $userId)
