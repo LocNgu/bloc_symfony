@@ -161,23 +161,6 @@ class User implements UserInterface
         $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    public function setRole(Role $role): self
-    {
-        if (!$this->roles->contains($role)) {
-            $this->roles[] = $role;
-        }
-
-        return $this;
-    }
-
-
-    public function setRoles($roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
     public function getRolesAC()
     {
         return $this->roles;
@@ -203,6 +186,15 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
+    public function setRole(Role $role): self
+    {
+        if (!$this->roles->contains($role)) {
+            $this->roles[] = $role;
+        }
+
+        return $this;
+    }
+
     public function removeRole(Role $role): self
     {
         if ($this->roles->contains($role)) {
@@ -212,10 +204,16 @@ class User implements UserInterface
         return $this;
     }
 
+    public function setRoles($roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
     public function addRole(Role $role): self
     {
-        dump($this->roles);
-        if (!in_array($role, $this->roles)) {
+        if (!$this->roles->contains($role)) {
             $this->roles[] = $role;
         }
 
