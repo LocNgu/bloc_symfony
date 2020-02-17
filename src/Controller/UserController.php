@@ -33,22 +33,20 @@ class UserController extends AbstractController
             $json = $form->get('json')->getData();
             if ($json) {
                 $json = file_get_contents($json);
-                // deserialize
-                $encoder = [new JsonEncoder()];
-                $normalizer = [new ArrayDenormalizer(), new ObjectNormalizer()];
-                $serializer = new Serializer($normalizer, $encoder);
-                $tmp_users = $serializer->deserialize($json, 'App\Entity\User[]', 'json');
-                dump($tmp_users);
+                $tmp_users = $this->deserialize($json);
+
                 foreach ($tmp_users as $user) {
                     dump($user);
-                    if (!in_array($user->getUsername(), $users)) {
-//                        $encoded = $encoder->encodePassword($user, $user->getPassword());
-//                        $user->setPassword($encoded);
-//                        foreach ($user->getRolesAC() as $role) {
-//                            $role = $em->getRepository(Role::class)->findOneByName($role['name']);
-//                            dump($role);
-//                            $user->addRole($role);
-//                        }
+                    if (in_array($user->getUsername(), $users)) {
+                        //update user
+                        // check if it is the same user?
+                    } else {
+                        $encoded = $encoder->encodePassword($user, $user->getPassword());
+                        $user->setPassword($encoded);
+                        foreach ($user->getRoles() as $role) {
+                            dump($role);
+                            $user->addRole($em->getRepository(Role::class)->findOneBy(['name' => $role]));
+                        }
 
                         $em->persist($user);
                         $em->flush();
@@ -105,16 +103,15 @@ class UserController extends AbstractController
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
                 return $object->getId();
             },
-            AbstractNormalizer::IGNORED_ATTRIBUTES => ['roles'],
-//            AbstractNormalizer::ATTRIBUTES => [
-//                'id',
-//                'username',
-//                'email',
-//                'firstname',
-//                'lastname',
-//                'roles',
-//                'password',
-//            ],
+            AbstractNormalizer::ATTRIBUTES => [
+                'id',
+                'username',
+                'email',
+                'firstname',
+                'lastname',
+                'roles',
+                'password',
+            ],
         ];
 //        $normalizers = [new ObjectNormalizer()];
         $normalizers = [new ObjectNormalizer(null, null, null, null, null, null, $defaultContext)];
@@ -139,7 +136,10 @@ class UserController extends AbstractController
     public function deserialize($data)
     {
         dump($data);
-
+        $encoder = [new JsonEncoder()];
+        $normalizer = [new ArrayDenormalizer(), new ObjectNormalizer()];
+        $serializer = new Serializer($normalizer, $encoder);
+        $users = $serializer->deserialize($data, 'App\Entity\User[]', 'json');
         dump($users);
 
         return $users;
